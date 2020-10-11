@@ -4,8 +4,8 @@ onready var uuid = preload("uuid.gd").new()
 
 # The URL we will connect to
 # DEVELOPMENT VARIABLE
-#export var websocket_url = "ws://miscreant-services-v1.herokuapp.com/"
-export var websocket_url = "ws://localhost:8080"
+export var websocket_url = "ws://miscreant-services-v1.herokuapp.com/"
+#export var websocket_url = "ws://localhost:8080"
 
 # Our WebSocketClient instance
 var _client = WebSocketClient.new()
