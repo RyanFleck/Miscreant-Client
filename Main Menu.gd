@@ -12,20 +12,25 @@ var _client = WebSocketClient.new()
 var id = null
 var ready = false
 
-onready var MessageEditor = get_node("MessageEditor")
-onready var MessageWindow = get_node("MessageWindow")
-onready var SendMessageButton = get_node("SendMessageButton")
-var messages = [ "System: Welcome to Miscreant!" ]
+onready var MessageEditor = get_node("Control/MessageEditor")
+onready var MessageWindow = get_node("Control/MessageWindow")
+onready var SendMessageButton = get_node("Control/SendMessageButton")
+onready var ServerButton = get_node("Control/ServerButton")
+var messages = [ "Sys: Welcome to Miscreant!" ]
+
 
 func update_message_window(new_message):
-	messages.push_front(new_message)
-	messages = messages.slice(0,5)
+	# Pushes a new message to the message window.
+	messages.push_back(new_message)
+	while messages.size() > 10:
+		messages.pop_front()
 	var text = ""
 	for item in messages:
 		text = text + item + "\n"
 	
 	# Set the messagewindow text to this.
 	MessageWindow.text = text
+
 
 func _ready():
 	print("Main menu is ready.")
@@ -40,25 +45,28 @@ func _ready():
 	# Alternatively, you could check get_peer(1).get_available_packets() in a loop.
 	_client.connect("data_received", self, "_on_data")
 
+
 func _closed(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
 	# by the remote peer before closing the socket.
 	print("Closed, clean: ", was_clean)
 	update_message_window("Sys: Disconnected from Server.")
-	get_node("ServerButton").text = "Disconnected. Click to reconnect."
+	ServerButton.text = "Disconnected. Click to reconnect."
 	ready = false
+
 
 func _connected(proto = ""):
 	# This is called on connection, "proto" will be the selected WebSocket
 	# sub-protocol (which is optional)
 	print("Connected with protocol: ", proto)
 	update_message_window("Sys: Connected to Server.")
-	get_node("ServerButton").text = "Connected."
+	ServerButton.text = "Connected."
 	ready = true
 	# You MUST always use get_peer(1).put_packet to send data to server,
 	# and not put_packet directly when not using the MultiplayerAPI.
 	var auth_string = "Auth "+id
 	_client.get_peer(1).put_packet(auth_string.to_utf8())
+
 
 func _on_data():
 	# Print the received packet, you MUST always use get_peer(1).get_packet
@@ -82,16 +90,16 @@ func _process(delta):
 
 
 func _on_ServerButton_pressed():
-	get_node("ServerButton").text = "Connecting..."
+	ServerButton.text = "Connecting..."
 	
 	if ready == true:
-		get_node("ServerButton").text = "Still connected."
+		ServerButton.text = "Still connected."
 		return
 	
 	print("Connecting to websocket...")
 	var err = _client.connect_to_url(websocket_url)
 	if err != OK:
-		get_node("ServerButton").text = "Failed. Click to retry."
+		ServerButton.text = "Failed. Click to retry."
 
 
 func _on_SendMessageButton_pressed():
