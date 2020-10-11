@@ -2,8 +2,7 @@ extends Node2D
 
 onready var uuid = preload("uuid.gd").new()
 
-# The URL we will connect to
-# DEVELOPMENT VARIABLE
+# The URL we will connect to:
 export var websocket_url = "ws://miscreant-services-v1.herokuapp.com/"
 #export var websocket_url = "ws://localhost:8080"
 
@@ -79,9 +78,7 @@ func _on_data():
 	elif data.begins_with("msg"):
 		# Repeat message to self.
 		update_message_window(data.trim_prefix("msg "))
-	
 
-	
 
 func _process(delta):
 	# Call this in _process or _physics_process. Data transfer, and signals
@@ -106,4 +103,3 @@ func _on_SendMessageButton_pressed():
 	var content = "msg "+MessageEditor.text.strip_edges()
 	MessageEditor.text = ""
 	_client.get_peer(1).put_packet(content.to_utf8())
-
