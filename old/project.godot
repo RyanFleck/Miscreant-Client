@@ -15,15 +15,16 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Miscreant"
-run/main_scene="res://Main Menu.tscn"
+config/name="BlockWorld-Client"
+run/main_scene="res://Main.tscn"
+config/icon="res://icon.png"
 
 [display]
 
-window/size/width=600
-window/size/height=400
+window/size/width=800
 window/size/resizable=false
 window/dpi/allow_hidpi=true
+window/vsync/vsync_via_compositor=true
 
 [rendering]
 
@@ -31,6 +32,8 @@ quality/driver/driver_name="GLES2"
 quality/driver/fallback_to_gles2=true
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
+quality/2d/use_pixel_snap=true
+threads/thread_model=2
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"
