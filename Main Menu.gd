@@ -9,12 +9,27 @@ export var websocket_url = "ws://miscreant-services-v1.herokuapp.com/"
 # Our WebSocketClient instance
 var _client = WebSocketClient.new()
 var id = null
-var connection_attempts = 0
 var ready = false
+
+onready var MessageEditor = get_node("MessageEditor")
+onready var MessageWindow = get_node("MessageWindow")
+onready var SendMessageButton = get_node("SendMessageButton")
+var messages = [ "System: Welcome to Miscreant!" ]
+
+func update_message_window(new_message):
+	messages.push_front(new_message)
+	messages = messages.slice(0,5)
+	var text = ""
+	for item in messages:
+		text = text + item + "\n"
+	
+	# Set the messagewindow text to this.
+	MessageWindow.text = text
 
 func _ready():
 	print("Main menu is ready.")
 	id = uuid.v4()
+	
 	# Connect base signals to get notified of connection open, close, and errors.
 	_client.connect("connection_closed", self, "_closed")
 	_client.connect("connection_error", self, "_closed")
@@ -24,30 +39,19 @@ func _ready():
 	# Alternatively, you could check get_peer(1).get_available_packets() in a loop.
 	_client.connect("data_received", self, "_on_data")
 
-	# Initiate connection to the given URL.
-	print("Connecting to websocket...")
-	var err = _client.connect_to_url(websocket_url)
-	if err != OK:
-		while connection_attempts < 10:
-			print("Unable to connect, retrying...")
-			_client.connect_to_url(websocket_url)
-			if err != OK:
-				connection_attempts = connection_attempts + 1
-			else:
-				connection_attempts = 10
-			
-		set_process(false)
-
 func _closed(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
 	# by the remote peer before closing the socket.
 	print("Closed, clean: ", was_clean)
-	set_process(false)
+	update_message_window("Sys: Disconnected from Server.")
+	get_node("ServerButton").text = "Disconnected. Click to reconnect."
+	ready = false
 
 func _connected(proto = ""):
 	# This is called on connection, "proto" will be the selected WebSocket
 	# sub-protocol (which is optional)
 	print("Connected with protocol: ", proto)
+	update_message_window("Sys: Connected to Server.")
 	# You MUST always use get_peer(1).put_packet to send data to server,
 	# and not put_packet directly when not using the MultiplayerAPI.
 	var auth_string = "Auth "+id
@@ -66,3 +70,19 @@ func _process(delta):
 	# Call this in _process or _physics_process. Data transfer, and signals
 	# emission will only happen when calling this function.
 	_client.poll()
+
+
+func _on_ServerButton_pressed():
+	get_node("ServerButton").text = "Connecting..."
+	
+	if ready == true:
+		get_node("ServerButton").text = "Still connected."
+		return
+	
+	print("Connecting to websocket...")
+	var err = _client.connect_to_url(websocket_url)
+	if err != OK:
+		get_node("ServerButton").text = "Failed. Click to retry."
+	else:
+		get_node("ServerButton").text = "Connected."
+		ready = true
