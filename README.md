@@ -1,6 +1,6 @@
 # Miscreant
 
-A small game to test if I can make a simple networked game. _Supports all build targets!_
+A small game to test if I can make a simple networked game. _Supports all 2D build targets!_
 
 Corresponding backend is <https://github.com/RyanFleck/Miscreant-Backend>
 
