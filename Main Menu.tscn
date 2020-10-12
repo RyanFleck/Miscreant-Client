@@ -153,6 +153,7 @@ segments = PoolVector2Array( 32, 32, 32, 0, 32, 0, 32, 32, 32, 32, 32, 32 )
 0/z_index = 0
 
 [sub_resource type="DynamicFont" id=17]
+size = 8
 font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=18]
@@ -209,31 +210,33 @@ __meta__ = {
 }
 
 [node name="Player" parent="World/Node2D/Occupants" instance=ExtResource( 5 )]
-position = Vector2( 289.267, 153.015 )
+position = Vector2( 289, 171 )
 
 [node name="NetworkPlayer" parent="World/Node2D/Occupants" instance=ExtResource( 6 )]
-position = Vector2( 340.382, 153.104 )
+position = Vector2( 489, 149 )
 
 [node name="Monster" parent="World/Node2D/Occupants" instance=ExtResource( 4 )]
-position = Vector2( 238.722, 153.235 )
+position = Vector2( 130, 262 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Control"]
-anchor_right = 10.0
-anchor_bottom = 10.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -151.0
-margin_bottom = -370.0
+anchor_right = 2.973
+anchor_bottom = 0.773
+margin_left = 3.0
+margin_top = 5.0
+margin_right = -12.92
+margin_bottom = -12.92
 custom_fonts/font = SubResource( 17 )
 text = "Miscreant Alpha v0.0.1"
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -245,14 +248,15 @@ margin_bottom = 43.0
 custom_fonts/font = SubResource( 18 )
 text = "Connect To Server"
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="MessageEditor" type="LineEdit" parent="Control"]
-margin_left = 8.0
-margin_top = 553.0
-margin_right = 675.0
-margin_bottom = 593.0
+margin_left = 10.0
+margin_top = 412.0
+margin_right = 677.0
+margin_bottom = 442.0
 hint_tooltip = "Send a message..."
 custom_fonts/font = SubResource( 19 )
 clear_button_enabled = true
@@ -260,31 +264,34 @@ placeholder_text = "Enter message..."
 placeholder_alpha = 1.0
 caret_blink = true
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="MessageWindow" type="RichTextLabel" parent="Control"]
 modulate = Color( 1, 1, 1, 0.788235 )
-margin_left = 504.0
-margin_top = 54.0
-margin_right = 789.0
-margin_bottom = 358.0
+margin_left = 519.0
+margin_top = 53.0
+margin_right = 785.0
+margin_bottom = 403.0
 custom_fonts/normal_font = SubResource( 20 )
 tab_size = 2
 text = "System: Welcome to Miscreant!"
 scroll_following = true
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="SendMessageButton" type="Button" parent="Control"]
 margin_left = 682.0
-margin_top = 554.0
+margin_top = 411.0
 margin_right = 793.0
-margin_bottom = 593.0
+margin_bottom = 442.0
 custom_fonts/font = SubResource( 21 )
 text = "Send"
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="Control/ServerButton" to="." method="_on_ServerButton_pressed"]
