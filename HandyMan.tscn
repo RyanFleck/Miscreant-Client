@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://HandyMan.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10.9935, 24.2065 )
+
+[node name="HandyMan" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -0.0890884, -0.356358 )
+shape = SubResource( 1 )
+
+[node name="Body" type="Node2D" parent="."]
+
+[node name="Colored" type="Node2D" parent="Body"]
+modulate = Color( 0.6, 0.254902, 0.254902, 1 )
+
+[node name="Chest" type="Polygon2D" parent="Body/Colored"]
+position = Vector2( 0, -5.07041 )
+scale = Vector2( 1, 1.92839 )
+z_index = 2
+polygon = PoolVector2Array( -10, -10, -16.6302, -0.0525159, -10, 10, -0.101345, 11.3284, 10, 10, 16.1796, 0.00546876, 10, -10, -0.32095, -10.8011 )
+
+[node name="RightLeg" type="Polygon2D" parent="Body/Colored"]
+position = Vector2( -1.14279, -2.80317 )
+color = Color( 0.592157, 0.592157, 0.592157, 1 )
+polygon = PoolVector2Array( 3.43598, 17.7763, 7.84095, 16.3748, 8.44163, 26.653 )
+
+[node name="RightArm" type="Polygon2D" parent="Body/Colored"]
+position = Vector2( 6.38636, -7.16073 )
+z_index = 4
+color = Color( 0.592157, 0.592157, 0.592157, 1 )
+polygon = PoolVector2Array( -2.72758, -0.288992, -1.56942, -4.56531, 3.15235, -0.556263, 4.89496, 9.93077, 4.58314, 15.2762, 2.3559, 17.8152, -0.695433, 17.5257, -2.32132, 14.8084, 0.6348, 14.5917, 1.58889, 13.5253, 0.890724, 11.1241, -1.31906, 12.9153, -2.76677, 12.6926, -2.0986, 11.1112, -0.231739, 9.18783 )
+
+[node name="LeftLeg" type="Polygon2D" parent="Body/Colored"]
+position = Vector2( 1.00113, -4.20475 )
+color = Color( 0.592157, 0.592157, 0.592157, 1 )
+polygon = PoolVector2Array( -8.64432, 16.1745, -8.24387, 28.2548, -3.77215, 17.1757 )
+
+[node name="Eyes" type="Node2D" parent="Body"]
+z_index = 4
+
+[node name="Polygon2D" type="Polygon2D" parent="Body/Eyes"]
+position = Vector2( 16.3034, 1.42544 )
+polygon = PoolVector2Array( -26.6915, -18.5938, -29.9879, -9.32845, -26.2794, -5.81758, -20.0989, -8.70482, -19.8316, -13.6939, -19.0298, -19.1283 )
