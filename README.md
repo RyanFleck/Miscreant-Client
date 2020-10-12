@@ -7,7 +7,15 @@ Corresponding backend is <https://github.com/RyanFleck/Miscreant-Backend>
 
 <br />
 
-## Iteration 2 Notes
+## 0.0.2 Release Notes
+
+Simple GUI created, players can all connect and chat.
+
+![](/readme/pic-0.0.2.png)
+
+
+
+## Iteration 2 Notes (0.0.1 Release)
 
 Basic websocket backend deployed and working on Heroku. Hooray!
 
